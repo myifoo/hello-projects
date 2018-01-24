@@ -13,7 +13,20 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <jetty.version>9.4.7.RC0</jetty.version>
+    <jersey.version>2.26</jersey.version>
   </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.glassfish.jersey</groupId>
+        <artifactId>jersey-bom</artifactId>
+        <version>${jersey.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <dependencies>
     <!--HK2-->
@@ -96,17 +109,37 @@
       <version>${jetty.version}</version>
     </dependency>
 
-    <!--Jersey-->
+    <!--Sun Jersey-->
     <dependency>
       <groupId>com.sun.jersey</groupId>
       <artifactId>jersey-server</artifactId>
       <version>1.18.3</version>
+      <!--与 glassfish.jersey 冲突的临时解决方法，实际项目中不能这么做-->
+      <scope>provided</scope>
     </dependency>
 
     <dependency>
       <groupId>com.sun.jersey.contribs</groupId>
       <artifactId>jersey-guice</artifactId>
       <version>1.18.3</version>
+      <!--与 glassfish.jersey 冲突的临时解决方法，实际项目中不能这么做-->
+      <scope>provided</scope>
+    </dependency>
+
+    <!--glassfish Jersey-->
+    <dependency>
+      <groupId>org.glassfish.jersey.core</groupId>
+      <artifactId>jersey-server</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.glassfish.jersey.containers</groupId>
+      <artifactId>jersey-container-grizzly2-http</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.glassfish.jersey.inject</groupId>
+      <artifactId>jersey-hk2</artifactId>
     </dependency>
 
     <!--Others-->
